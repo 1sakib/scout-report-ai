@@ -22,3 +22,6 @@ data/cache/
 .DS_Store
 .idea/
 .vscode/
+
+.docs/VISION.md
+AI_GUIDELINES.md
