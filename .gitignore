@@ -23,5 +23,5 @@ data/cache/
 .idea/
 .vscode/
 
-.docs/VISION.md
+docs/VISION.md
 AI_GUIDELINES.md
