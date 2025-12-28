@@ -8,7 +8,7 @@ def init_app() -> None:
     load_dotenv()
     st.set_page_config(
         page_title="VALORANT Scouting Report Generator",
-        page_icon="🎯",
+        page_icon="X",
         layout="wide",
     )
 
