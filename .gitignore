@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Virtual env
+.venv/
+
+# Env files / secrets
+.env
+.streamlit/secrets.toml
+
+# Data / caches
+data/cache/
+*.duckdb
+*.db
+*.zip
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
