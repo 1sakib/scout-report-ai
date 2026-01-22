@@ -151,6 +151,20 @@ def render_chat_panel() -> None:
         # Add user message to chat history
         st.session_state.messages.append({"role": "user", "content": prompt})
 
+        # Check if the prompt is a report generation command
+        import re
+
+        report_match = re.search(
+            r"Generate (?:a full )?scouting report for (.*) based on their last (\d+) matches",
+            prompt,
+            re.IGNORECASE,
+        )
+        if report_match:
+            st.session_state.current_report_request = {
+                "team_name": report_match.group(1),
+                "match_count": int(report_match.group(2)),
+            }
+
         st.rerun()
 
     # If we are processing, run the animation
@@ -205,7 +219,20 @@ def render_chat_panel() -> None:
                     placeholder.markdown(f":green[{typed_done}]")
                     time.sleep(0.05)
 
-                final_response = "Done!"
+                if hasattr(st.session_state, "current_report_request"):
+                    request = st.session_state.current_report_request
+                    # Here we would normally call the full pipeline
+                    # For now, we simulate that the report is ready
+                    st.session_state.report_data = {
+                        "team_name": request["team_name"],
+                        "match_count": request["match_count"],
+                        "status": "completed",
+                        "generated_at": time.time(),
+                    }
+                    final_response = f"Scouting report for **{request['team_name']}** based on the last {request['match_count']} matches has been generated! You can now explore the tabs to see the insights."
+                    del st.session_state.current_report_request
+                else:
+                    final_response = "Done!"
 
             st.session_state.messages.append({"role": "assistant", "content": final_response})
             st.session_state.processing = False
